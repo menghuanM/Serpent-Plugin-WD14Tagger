@@ -1,0 +1,132 @@
+{
+  "manifestVersion": 1,
+  "id": "com.menghuan.wd14tagger",
+  "version": "0.1.7",
+  "name": "WD14 Tagger",
+  "description": "Local WD14 image tagging with ONNX models. Fully offline; runs EVA02, ViT, ConvNext, SwinV2 and MOAT tagger models, writes tags back to the library.",
+  "locales": {
+    "zh-CN": {
+      "name": "WD14 本地打标",
+      "description": "使用本地 ONNX WD14 模型离线打标。支持 EVA02、ViT、ConvNext、SwinV2、MOAT 系列，标签写回资源库。"
+    }
+  },
+  "author": "menghuan",
+  "license": "MIT",
+  "engines": {
+    "serpent": ">=0.1.0 <1.0.0",
+    "pluginApi": 1
+  },
+  "runtime": {
+    "mode": "unrestricted",
+    "entry": "entry/main.js",
+    "instanceScope": "library"
+  },
+  "permissions": [
+    "library.read",
+    "asset.read",
+    "content.read",
+    "tag.read",
+    "tag.write",
+    "job.read",
+    "job.manage",
+    "storage.read",
+    "storage.write",
+    "ui.notify"
+  ],
+  "contributes": {
+    "commands": [
+      { "id": "tag-selection", "title": "WD14: Tag selected images" },
+      { "id": "tag-folder", "title": "WD14: Tag current folder" }
+    ],
+    "toolbar": [],
+    "menus": {
+      "asset": [
+        {
+          "command": "tag-selection",
+          "group": "analysis",
+          "when": "selection.extensions intersects ['jpg','jpeg','png']",
+          "enablement": "library.open && library.writable"
+        }
+      ],
+      "folder": [
+        {
+          "command": "tag-folder",
+          "group": "analysis",
+          "enablement": "library.open && library.writable"
+        }
+      ],
+      "workspace": []
+    },
+    "settings": [
+      {
+        "id": "model-dir",
+        "title": "Model directory",
+        "description": "Directory containing WD14 .onnx + .csv files (e.g. ComfyUI wd14 tagger models folder).",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "id": "model",
+        "title": "Model",
+        "description": "Choose a WD14 model. Labels include the source repository, tag count and the model-directory status found during this update: 本地有 means both matching .onnx and .csv files exist; 本地不完整 means one file is missing.",
+        "type": "select",
+        "options": [
+          { "value": "wd-eva02-large-tagger-v3", "label": "EVA02_Large | 10,861 标签 | 本地无 | SmilingWolf/wd-eva02-large-tagger-v3" },
+          { "value": "wd-vit-large-tagger-v3", "label": "ViT_Large | 10,861 标签 | 本地无 | SmilingWolf/wd-vit-large-tagger-v3" },
+          { "value": "wd-v1-4-swinv2-tagger-v2", "label": "SwinV2 | 9,083 标签 | 本地无 | SmilingWolf/wd-v1-4-swinv2-tagger-v2" },
+          { "value": "wd-v1-4-convnext-tagger-v2", "label": "ConvNext | 9,083 标签 | 本地无 | SmilingWolf/wd-v1-4-convnext-tagger-v2" },
+          { "value": "wd-v1-4-convnextv2-tagger-v2", "label": "ConvNextV2 | 9,083 标签 | 本地有 | SmilingWolf/wd-v1-4-convnextv2-tagger-v2" },
+          { "value": "wd-v1-4-vit-tagger-v2", "label": "ViT | 9,083 标签 | 本地无 | SmilingWolf/wd-v1-4-vit-tagger-v2" },
+          { "value": "wd-v1-4-moat-tagger-v2", "label": "MOAT | 9,083 标签 | 本地有 | SmilingWolf/wd-v1-4-moat-tagger-v2" },
+          { "value": "wd-swinv2-tagger-v3", "label": "SwinV2_v3 | 10,861 标签 | 本地有 | SmilingWolf/wd-swinv2-tagger-v3" },
+          { "value": "wd-convnext-tagger-v3", "label": "ConvNext_v3 | 10,861 标签 | 本地不完整（缺 .csv） | SmilingWolf/wd-convnext-tagger-v3" },
+          { "value": "wd-vit-tagger-v3", "label": "ViT_v3 | 10,861 标签 | 本地有 | SmilingWolf/wd-vit-tagger-v3" }
+        ],
+        "default": "wd-vit-tagger-v3"
+      },
+      {
+        "id": "general-threshold",
+        "title": "General tag threshold",
+        "type": "slider",
+        "minimum": 0.05,
+        "maximum": 0.95,
+        "step": 0.05,
+        "default": 0.35
+      },
+      {
+        "id": "character-threshold",
+        "title": "Character tag threshold",
+        "type": "slider",
+        "minimum": 0.05,
+        "maximum": 0.95,
+        "step": 0.05,
+        "default": 0.85
+      },
+      {
+        "id": "max-tags",
+        "title": "Max tags per asset",
+        "type": "number",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 40
+      },
+      {
+        "id": "output-language",
+        "title": "Output language",
+        "description": "Chinese uses a built-in offline dictionary; tags without a translation keep their original names. 中文使用内置离线词典，未收录的标签保留原文。",
+        "type": "select",
+        "options": [
+          { "value": "english", "label": "English (raw)" },
+          { "value": "chinese", "label": "中文（离线翻译） / Chinese (offline)" }
+        ],
+        "default": "english"
+      }
+    ],
+    "jobs": [
+      { "id": "wd14-tag-job", "title": "WD14 tagging", "recovery": "idempotent" }
+    ]
+  },
+  "mcp": {
+    "expose": ["tag-selection"]
+  }
+}

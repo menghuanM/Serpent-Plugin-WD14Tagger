@@ -1,0 +1,32 @@
+{
+  "repository": "https://github.com/amenorira/danbooru-tags-data-zh",
+  "revision": "8e73f3b1c15b30f873c11a8c65d2d8264cdf0224",
+  "license": "MIT",
+  "licenseSha256": "d9db28b2e55ae4694f7ec9b38c3849cc604366a97470d347e7ef7d4e9e73e940",
+  "sources": [
+    {
+      "path": "tags/general.csv",
+      "sha256": "4df46d24d61ee32b96d9aa79ae390b0c35bdd99ce15d591b617dc949e92c4240",
+      "rows": 30693
+    },
+    {
+      "path": "tags/character.csv",
+      "sha256": "f77948b3d882641a65af37305f5a052257f841e259d7cc95c22163daa0146fe3",
+      "rows": 35384
+    }
+  ],
+  "localOverrides": {
+    "path": "tags-zh-CN.overrides.json",
+    "sha256": "d89c60b92d741f6e59dd6577daf9a17fabb8b5c91a78e2afc4821092dd76266f",
+    "entries": 139
+  },
+  "localAdditions": {
+    "path": "tags-zh-CN.additions.json",
+    "sha256": "fb1ef57373256bea9f8910eafd28ac2c33d08decc819c090cac121b1ed6527ac",
+    "entries": 251
+  },
+  "canonicalTags": 66077,
+  "aliases": 19733,
+  "entries": 86061,
+  "entriesWithHanCharacters": 84616
+}

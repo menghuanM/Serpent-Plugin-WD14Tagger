@@ -1,0 +1,41 @@
+# Track only plugin source, maintenance files and versioned installers.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/LICENSE
+!/THIRD_PARTY_NOTICES.md
+!/build.js
+!/package.json
+!/package-lock.json
+!/serpent-plugin.json
+!/entry/
+!/entry/**
+!/data/
+!/data/**
+!/scripts/
+!/dist/
+
+# Maintained regression, packaging and translation tools.
+/scripts/*
+!/scripts/test-tagging.cjs
+!/scripts/test-translations.cjs
+!/scripts/smoke-tagging.cjs
+!/scripts/validate-package.cjs
+!/scripts/check-translation-coverage.cjs
+!/scripts/update-translations.cjs
+
+# Upload the installable build, excluding staging files and local reports.
+/dist/*
+!/dist/serpent-plugin-wd14tagger-*.zip
+
+# Local secrets, dependencies, model weights, caches and editor files.
+node_modules/
+.env
+.env.*
+*.log
+*.onnx
+*.onnx_data
+.DS_Store
+Thumbs.db
+desktop.ini

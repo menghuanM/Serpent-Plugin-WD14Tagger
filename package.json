@@ -1,0 +1,28 @@
+{
+  "name": "serpent-plugin-wd14tagger",
+  "version": "0.1.7",
+  "description": "Local WD14 tagger plugin for Serpent. Runs ONNX WD14 models offline.",
+  "main": "entry/main.js",
+  "scripts": {
+    "build": "node build.js",
+    "package": "node build.js --zip",
+    "test": "node scripts/test-tagging.cjs",
+    "test:smoke": "node scripts/smoke-tagging.cjs",
+    "test:package": "node scripts/validate-package.cjs",
+    "translations:coverage": "node scripts/check-translation-coverage.cjs",
+    "translations:update": "node scripts/update-translations.cjs"
+  },
+  "author": "menghuan",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "jpeg-js": "^0.4.4",
+    "onnxruntime-web": "^1.20.1",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.6.0",
+    "typescript": "6.0.3",
+    "zod": "4.4.3"
+  }
+}
