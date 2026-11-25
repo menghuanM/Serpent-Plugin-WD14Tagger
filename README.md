@@ -1,10 +1,3 @@
-# Serpent Plugin: WD14 Tagger
+# Serpent 插件：WD14 本地打标
 
-Offline WD14 image tagging for [Serpent](https://github.com/dolag233/Serpent), using
-ONNX models (`wd-eva02-large-tagger-v3`, `wd-vit-large-tagger-v3`,
-`wd-v1-4-swinv2-tagger-v2`, `wd-v1-4-convnext-tagger-v2`,
-`wd-v1-4-convnextv2-tagger-v2`, `wd-v1-4-vit-tagger-v2`,
-`wd-v1-4-moat-tagger-v2`, `wd-vit-tagger-v3`, `wd-convnext-tagger-v3`,
-`wd-swinv2-tagger-v3` and compatible formats).
-Inference runs in-process via onnxruntime-web (WASM, CPU). No network access.
-JPEG and PNG are supported. WebP needs conversion to JPEG/PNG first.
+适用于 [Serpent](https://github.com/dolag233/Serpent) 的离线 WD14 图片打标插件，支持 EVA02、ViT、ConvNext、SwinV2、MOAT 等 ONNX 模型。通过 onnxruntime-web（WASM）在本地 CPU 上运行，无需联网。支持 JPEG 和 PNG 图片；WebP 需先转换为 JPEG 或 PNG。
